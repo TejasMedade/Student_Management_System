@@ -1,5 +1,11 @@
 package com.synchrony.exceptions;
 
+/**
+ * Custom exception to be thrown when a resource (e.g., student, admin, etc.) is not found in the system.
+ * This exception provides details about the missing resource, its field, and the field value that caused the error.
+ *
+ * @author Tejas_Medade
+ */
 public class ResourceNotFoundException extends Exception {
 
     // Generated serial version UID for serialization
@@ -27,14 +33,30 @@ public class ResourceNotFoundException extends Exception {
     }
 
     // Getter methods to access exception details
+
+    /**
+     * Get the name of the resource that was not found.
+     *
+     * @return resource name as a String
+     */
     public String getResourceName() {
         return resourceName;
     }
 
+    /**
+     * Get the name of the field that caused the resource not to be found.
+     *
+     * @return field name as a String
+     */
     public String getFieldName() {
         return fieldName;
     }
 
+    /**
+     * Get the value of the field that caused the resource not to be found.
+     *
+     * @return field value as an Object
+     */
     public Object getFieldValue() {
         return fieldValue;
     }

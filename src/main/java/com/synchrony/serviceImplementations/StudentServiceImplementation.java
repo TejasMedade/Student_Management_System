@@ -3,6 +3,7 @@ package com.synchrony.serviceImplementations;
 import com.synchrony.dtos.requestDtos.StudentRequestDTO;
 import com.synchrony.dtos.requestDtos.UserPasswordDTO;
 import com.synchrony.dtos.responseDtos.StudentResponseDTO;
+import com.synchrony.exceptions.ResourceNotFoundException;
 import com.synchrony.models.Student;
 import com.synchrony.repositories.StudentRepository;
 import com.synchrony.services.StudentService;
@@ -18,10 +19,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.synchrony.exceptions.ResourceNotFoundException;
 
 /**
  * Service implementation for handling student-related operations.
@@ -133,8 +130,6 @@ public class StudentServiceImplementation implements StudentService {
 
         return modelMapper.map(student, StudentResponseDTO.class);
     }
-
-
 
     /**
      * Change the password of the student.

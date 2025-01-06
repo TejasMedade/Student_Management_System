@@ -1,3 +1,9 @@
+/**
+ * StudentController is a REST controller responsible for handling student-related actions such as
+ * updating details, managing profile pictures, viewing data, and changing passwords.
+ *
+ * @author Tejas_Medade
+ */
 package com.synchrony.controllers;
 
 import com.synchrony.dtos.requestDtos.StudentRequestDTO;
@@ -9,18 +15,18 @@ import com.synchrony.utils.responseHandlers.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 /**
- * REST Controller for handling student-related actions such as updating details, managing profile pictures,
- * viewing data, and changing passwords.
+ * The StudentController class handles actions related to student accounts,
+ * including updating student details, managing profile pictures, viewing student data,
+ * and changing student passwords.
  */
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/synchrony/student")
 public class StudentController {
 
     private final StudentService studentService;

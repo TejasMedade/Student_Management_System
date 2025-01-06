@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,6 +32,8 @@ import java.util.stream.Collectors;
 /**
  * Implementation of AdminService interface that manages administrative actions.
  * This service includes operations like managing students and admin accounts.
+ *
+ * @author Tejas_Medade
  */
 @Service
 public class AdminServiceImplementation implements AdminService {
@@ -47,7 +50,10 @@ public class AdminServiceImplementation implements AdminService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    private static final String DEFAULT_PROFILE_PIC_PATH = "src/main/resources/static/images/default-profile-picture.jpg";
+    private static final String DEFAULT_PROFILE_PIC_FILENAME = "default-profile-picture.jpg";
+
+    @Value("${project.image}")
+    private String basePath;
 
     /**
      * Get all students in the system.
@@ -62,7 +68,6 @@ public class AdminServiceImplementation implements AdminService {
                 .collect(Collectors.toList());
     }
 
-
     /**
      * Add a new student account.
      * If no profile picture is provided, sets the default profile picture.
@@ -70,6 +75,7 @@ public class AdminServiceImplementation implements AdminService {
      * @param studentRequestDTO DTO containing student details
      * @param file              MultipartFile representing the profile picture
      * @return StudentResponseDTO with the newly created student details
+     * @throws IOException if file processing fails
      */
     @Transactional
     @Override
@@ -80,7 +86,7 @@ public class AdminServiceImplementation implements AdminService {
         if (file != null && !file.isEmpty()) {
             student.setProfilePhoto(file.getBytes());
         } else {
-            byte[] defaultImage = Files.readAllBytes(Paths.get(DEFAULT_PROFILE_PIC_PATH));
+            byte[] defaultImage = Files.readAllBytes(Paths.get(basePath));
             student.setProfilePhoto(defaultImage);
         }
 
@@ -93,6 +99,7 @@ public class AdminServiceImplementation implements AdminService {
      * Delete a student account by username.
      *
      * @param userName Unique identifier for the student
+     * @throws ResourceNotFoundException if student is not found
      */
     @Override
     @Transactional
@@ -101,7 +108,6 @@ public class AdminServiceImplementation implements AdminService {
                 .orElseThrow(() -> new ResourceNotFoundException("Student", "userName", userName));
         studentRepository.delete(student);
     }
-
 
     /**
      * Admin method to update basic student details like name, contact info, etc.
@@ -117,7 +123,7 @@ public class AdminServiceImplementation implements AdminService {
     public StudentResponseDTO updateBasicStudentDetails(String userName, StudentRequestDTO studentRequestDTO, MultipartFile file) throws IOException, ResourceNotFoundException {
         // Fetch student from database
         Student student = studentRepository.findById(userName)
-                .orElseThrow(() ->new ResourceNotFoundException("Student", "userName", userName));
+                .orElseThrow(() -> new ResourceNotFoundException("Student", "userName", userName));
 
         // Use ModelMapper to map the basic details from DTO to entity
         modelMapper.map(studentRequestDTO, student);
@@ -163,6 +169,7 @@ public class AdminServiceImplementation implements AdminService {
      * @param adminRequestDTO DTO containing admin account details
      * @param file            MultipartFile representing the profile picture
      * @return Created admin account details
+     * @throws IOException if file processing fails
      */
     @Transactional
     @Override
@@ -173,7 +180,7 @@ public class AdminServiceImplementation implements AdminService {
         if (file != null && !file.isEmpty()) {
             admin.setProfilePhoto(file.getBytes());
         } else {
-            byte[] defaultImage = Files.readAllBytes(Paths.get(DEFAULT_PROFILE_PIC_PATH));
+            byte[] defaultImage = Files.readAllBytes(Paths.get(basePath));
             admin.setProfilePhoto(defaultImage);
         }
 
@@ -189,6 +196,8 @@ public class AdminServiceImplementation implements AdminService {
      * @param adminRequestDTO DTO containing updated admin account details
      * @param file            MultipartFile representing the new profile picture (optional)
      * @return Updated admin account details
+     * @throws ResourceNotFoundException if admin is not found
+     * @throws IOException if file processing fails
      */
     @Transactional
     @Override
@@ -213,6 +222,7 @@ public class AdminServiceImplementation implements AdminService {
      * Delete an admin account by admin username.
      *
      * @param adminUsername Admin's username to be deleted
+     * @throws ResourceNotFoundException if admin is not found
      */
     @Override
     @Transactional
@@ -228,6 +238,7 @@ public class AdminServiceImplementation implements AdminService {
      * @param adminUsername Admin's unique username
      * @param file          MultipartFile representing the profile picture
      * @throws IOException If file processing fails
+     * @throws ResourceNotFoundException if admin is not found
      */
     @Transactional
     public void uploadProfilePictureForAdmin(String adminUsername, MultipartFile file) throws IOException, ResourceNotFoundException {
@@ -315,6 +326,24 @@ public class AdminServiceImplementation implements AdminService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Set the password of the student (e.g., for a new registration or password reset).
+     *
+     * @param userName the username of the student.
+     * @param userPasswordDTO the new password to set.
+     * @return ApiResponse with status and message.
+     * @throws ResourceNotFoundException if student is not found.
+     */
+    @Override
+    public ApiResponse setStudentPassword(String userName, UserPasswordDTO userPasswordDTO) throws ResourceNotFoundException {
+        // Fetch student
+        Student student = studentRepository.findById(userName)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", "userName", userName));
 
+        // Set encrypted password
+        student.setPassword(passwordEncoder.encode(userPasswordDTO.getPassword()));
+        studentRepository.save(student);
 
+        return new ApiResponse(LocalDateTime.now(), "Password updated successfully", true);
+    }
 }

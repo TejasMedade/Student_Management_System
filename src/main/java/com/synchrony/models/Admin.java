@@ -1,6 +1,7 @@
 package com.synchrony.models;
 
 import com.synchrony.enums.ProfileStatus;
+import com.synchrony.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,6 +49,10 @@ public class Admin {
      * Password for the admin user.
      */
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole role = UserRole.ROLE_ADMIN;
 
     /**
      * Email address for the admin user.

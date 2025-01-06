@@ -14,6 +14,9 @@ import java.time.Year;
 /**
  * This DTO class is used by admins to edit certain student-related fields that are not accessible by the student.
  * Admin-only fields such as academic details, class division, etc., are included.
+ *
+ *
+ * @author Tejas_Medade
  */
 @Data
 @AllArgsConstructor

@@ -1,16 +1,23 @@
+/**
+ * AdminController is a REST controller responsible for handling administrative actions
+ * such as managing students and admin accounts. It provides endpoints for CRUD operations
+ * on students and admin accounts.
+ *
+ * @author Tejas_Medade
+ */
 package com.synchrony.controllers;
-
 
 import com.synchrony.dtos.requestDtos.AdminRequestDTO;
 import com.synchrony.dtos.requestDtos.StudentRequestDTO;
+import com.synchrony.dtos.requestDtos.UserPasswordDTO;
 import com.synchrony.dtos.responseDtos.AdminResponseDTO;
 import com.synchrony.dtos.responseDtos.StudentResponseDTO;
 import com.synchrony.exceptions.ResourceNotFoundException;
 import com.synchrony.services.AdminService;
+import com.synchrony.utils.responseHandlers.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,11 +25,12 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * REST Controller for handling administrative actions such as managing students and admins.
- * Provides endpoints for CRUD operations on students and admin accounts.
+ * The AdminController class manages CRUD operations for both students and admin accounts.
+ * It allows admins to view, create, update, and delete student and admin accounts, as well as
+ * perform search and password management operations.
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/synchrony/admin")
 public class AdminController {
 
     private final AdminService adminService;
@@ -152,5 +160,35 @@ public class AdminController {
     public ResponseEntity<List<StudentResponseDTO>> searchStudentsByLastName(@PathVariable String lastName) {
         List<StudentResponseDTO> students = adminService.searchStudentsByLastName(lastName);
         return ResponseEntity.ok(students);
+    }
+
+    /**
+     * Change the password of the admin.
+     *
+     * @param userName         Admin's username
+     * @param userPasswordDTO  DTO containing the new password
+     * @return ApiResponse with status and message
+     * @throws ResourceNotFoundException If admin is not found
+     */
+    @PutMapping("/admins/{userName}/change-password")
+    public ResponseEntity<ApiResponse> changeAdminPassword(@PathVariable String userName,
+                                                           @RequestBody UserPasswordDTO userPasswordDTO) throws ResourceNotFoundException {
+        ApiResponse response = adminService.changeAdminPassword(userName, userPasswordDTO.getOldPassword(), userPasswordDTO);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Set the password for a student.
+     *
+     * @param userName        The student's username
+     * @param userPasswordDTO DTO containing the new password
+     * @return ApiResponse with status and message
+     * @throws ResourceNotFoundException If student is not found
+     */
+    @PutMapping("/students/{userName}/set-password")
+    public ResponseEntity<ApiResponse> setStudentPassword(@PathVariable String userName,
+                                                          @RequestBody UserPasswordDTO userPasswordDTO) throws ResourceNotFoundException {
+        ApiResponse response = adminService.setStudentPassword(userName, userPasswordDTO);
+        return ResponseEntity.ok(response);
     }
 }

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * This DTO class represents the data required to create or update admin details.
+ *
+ * @author Tejas_Medade
  */
 @Data
 @AllArgsConstructor
@@ -27,6 +29,18 @@ public class AdminRequestDTO {
     @NotNull(message = "{validation.email.notNull}")
     @Email(message = "{validation.email.invalid}")
     private String email;
+
+    /**
+     * Password field with regex validation.
+     * It enforces strong password rules:
+     * - At least 1 lowercase letter
+     * - At least 1 uppercase letter
+     * - At least 1 digit
+     * - At least 1 special character
+     * - Minimum length of 8 characters
+     */
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*\\(\\)_\\+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$", message = "{validation.password.pattern}")
+    private String password;
 
     @NotNull(message = "{validation.contactNumber.notNull}")
     @NotEmpty(message = "{validation.contactNumber.notEmpty}")

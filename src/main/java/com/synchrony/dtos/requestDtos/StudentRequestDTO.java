@@ -11,6 +11,8 @@ import java.time.LocalDate;
 /**
  * This DTO class is used to transfer data to and from the front end when interacting with the student entity.
  * Only necessary fields for student creation, viewing, and editing by the student are included here.
+ *
+ * @author Tejas_Medade
  */
 @Data
 @AllArgsConstructor

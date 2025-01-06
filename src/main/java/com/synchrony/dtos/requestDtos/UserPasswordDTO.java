@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * DTO for capturing password input with validation.
+ *
+ * @author Tejas_Medade
  */
 @Data
 @AllArgsConstructor
@@ -24,4 +26,7 @@ public class UserPasswordDTO {
      */
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*\\(\\)_\\+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$", message = "{validation.password.pattern}")
     private String password;
+
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*\\(\\)_\\+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$", message = "{validation.password.pattern}")
+    private String oldPassword;
 }

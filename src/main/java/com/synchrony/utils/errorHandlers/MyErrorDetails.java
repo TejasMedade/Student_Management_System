@@ -8,6 +8,8 @@ import java.util.Map;
 /**
  * MyErrorDetails class to standardize error response structure
  * in the application. This will help provide more details when an error occurs.
+ *
+ * Author: @Tejas_Medade
  */
 public class MyErrorDetails {
 

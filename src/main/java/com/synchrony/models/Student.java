@@ -1,7 +1,9 @@
 package com.synchrony.models;
 
+import com.synchrony.enums.AcademicCourse;
 import com.synchrony.enums.AcademicStream;
 import com.synchrony.enums.ProfileStatus;
+import com.synchrony.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -66,6 +68,10 @@ public class Student {
      * Password for the student to access the system.
      */
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole role = UserRole.ROLE_STUDENT;
 
     /**
      * Date of birth of the student.
@@ -169,7 +175,8 @@ public class Student {
     /**
      * Academic course the student is pursuing (e.g., B.A, B.Sc, B.Com).
      */
-    private String academicCourse;
+    @Enumerated(EnumType.STRING)
+    private AcademicCourse academicCourse;
 
     /**
      * Date when the student record was last modified.
