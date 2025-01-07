@@ -9,6 +9,7 @@ package com.synchrony.configurations.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -22,6 +23,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 /**
  * The WebSecurityConfiguration class defines the security configurations for the web application.
@@ -68,6 +71,7 @@ public class WebSecurityConfiguration {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Reference our CORS configuration bean
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless applications
                 .authorizeHttpRequests(authz -> authz
+                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .requestMatchers(PUBLIC_URLS).permitAll() // Publicly accessible endpoints
                         .requestMatchers("/synchrony/admin/**").hasRole("ADMIN") // ADMIN access only
                         .requestMatchers("/synchrony/student/**").hasRole("STUDENT") // STUDENT access only
@@ -138,9 +142,13 @@ public class WebSecurityConfiguration {
         configuration.addAllowedMethod("POST");
         configuration.addAllowedMethod("PUT");
         configuration.addAllowedMethod("DELETE");
+        configuration.addAllowedMethod("OPTIONS");
 
         // Allowed headers
         configuration.addAllowedHeader("*"); // All headers are allowed
+
+        // Expose headers that clients might need
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
 
         // Apply to all endpoints
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

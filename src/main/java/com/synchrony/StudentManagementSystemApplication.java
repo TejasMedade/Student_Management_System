@@ -25,7 +25,7 @@ public class StudentManagementSystemApplication {
 	 * In this configuration, it is set to load messages from `messages.properties` located in the `resources` folder.
 	 *
 	 * Features:
-	 * - Supports UTF-8 encoding for multilingual support.p
+	 * - Supports UTF-8 encoding for multilingual support.
 	 * - Can handle messages for validation annotations and other application-level messages.
 	 *
 	 * @return a configured {@link ResourceBundleMessageSource} instance.
