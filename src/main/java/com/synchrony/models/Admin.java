@@ -31,8 +31,8 @@ public class Admin {
      * This ID follows a custom format like the Student ID generator.
      */
     @Id
-    @GeneratedValue(generator = "custom-admin-id")
-    @GenericGenerator(name = "custom-admin-id", strategy = "package com.synchrony.utils.generators.CustomAdminIdGenerator")
+    @GeneratedValue(generator = "admin-id-generator")
+    @GenericGenerator(name = "admin-id-generator", strategy = "com.synchrony.utils.generators.CustomAdminIdGenerator")
     private String userName;
 
     /**

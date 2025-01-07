@@ -31,6 +31,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration {
 
+    /**
+     * Configures a password encoder using BCrypt.
+     *
+     * @return The configured BCryptPasswordEncoder.
+     */
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     // Public URLs that can be accessed without authentication
     public static final String[] PUBLIC_URLS = {
             "/synchrony/auth/login", // Login endpoint
@@ -90,15 +100,6 @@ public class WebSecurityConfiguration {
         return authProvider;
     }
 
-    /**
-     * Configures a password encoder using BCrypt.
-     *
-     * @return The configured BCryptPasswordEncoder.
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     /**
      * Configures the authentication manager, which is used for authenticating users.

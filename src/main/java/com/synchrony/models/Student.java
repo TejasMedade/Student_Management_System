@@ -33,8 +33,8 @@ public class Student {
      * Unique username for the student. It is generated using a custom generator.
      */
     @Id
-    @GeneratedValue(generator = "custom-student-id")
-    @GenericGenerator(name = "custom-student-id", strategy = "package com.synchrony.utils.generators.CustomStudentIdGenerator")
+    @GeneratedValue(generator = "student-id-generator")
+    @GenericGenerator(name = "student-id-generator", strategy = "com.synchrony.utils.generators.CustomStudentIdGenerator")
     private String userName;
 
     /**

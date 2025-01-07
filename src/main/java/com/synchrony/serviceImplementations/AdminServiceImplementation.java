@@ -15,11 +15,11 @@ import com.synchrony.services.AdminService;
 import com.synchrony.utils.responseHandlers.ApiResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,8 +47,12 @@ public class AdminServiceImplementation implements AdminService {
     @Autowired
     private ModelMapper modelMapper;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    public AdminServiceImplementation(BCryptPasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     private static final String DEFAULT_PROFILE_PIC_FILENAME = "default-profile-picture.jpg";
 

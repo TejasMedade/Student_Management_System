@@ -1,14 +1,13 @@
 package com.synchrony.utils.generators;
 
 
+import com.synchrony.models.Admin;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 import java.io.Serializable;
-
-import com.synchrony.models.Admin;
-
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Custom ID generator for Admin entity.
@@ -17,21 +16,24 @@ import java.text.SimpleDateFormat;
  */
 public class CustomAdminIdGenerator implements IdentifierGenerator {
 
-    private static int counter = 0;  // Static counter for random number generation
+    private static int counter = 0; // Static counter for sequential IDs
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) {
-        if (object instanceof Admin) {
-            Admin admin = (Admin) object;
+        if (object instanceof Admin admin) {
+            // Use current date if createdDate is null
+            Date creationDate = admin.getCreatedDate() != null
+                    ? java.sql.Date.valueOf(admin.getCreatedDate())
+                    : new Date();
 
-            // Use the date of creation (createdDate) to form the year part of the ID
-            String dateOfCreation = new SimpleDateFormat("yyyyMMdd").format(admin.getCreatedDate());
+            // Format the date part
+            String dateOfCreation = new SimpleDateFormat("yyyyMMdd").format(creationDate);
 
-            // Start with 0000 and increment each time an ID is generated
-            String randomNumber = String.format("%04d", counter++);  // Format to 4 digits
+            // Increment counter and format to 4 digits
+            String randomNumber = String.format("%04d", counter++);
 
-            // Generate and return the custom admin ID with prefix
-            return "ADM_" + dateOfCreation + "_" + randomNumber;
+            // Generate custom ID
+            return "ADM" + dateOfCreation + randomNumber;
         }
         throw new IllegalArgumentException("Object is not an Admin");
     }

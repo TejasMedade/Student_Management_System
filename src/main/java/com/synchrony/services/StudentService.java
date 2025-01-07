@@ -20,7 +20,6 @@ import java.io.IOException;
  *
  * Author: @Tejas_Medade
  */
-@Service
 public interface StudentService {
 
     /**
