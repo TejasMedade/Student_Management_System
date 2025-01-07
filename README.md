@@ -1,9 +1,9 @@
-# Student Management System
+## STUDENT MANAGEMENT SYSTEM
 
-![Student Management System](![integrated](https://github.com/user-attachments/assets/1373d13b-7dc1-4104-93d3-87754afcd5fa)
-)
+![Integrated Image](https://www.academyfront.com/images/blog/integrated.png)
 
-## **WEB SERVICE : REST A.P.I.**
+
+## WEB SERVICE : REST A.P.I.
 
 The Student Management System REST API is designed to simplify and streamline the management of students and administrators in an educational environment. This API enables efficient handling of user authentication, student records, and admin operations, ensuring a secure and robust framework for educational institutions.
 
