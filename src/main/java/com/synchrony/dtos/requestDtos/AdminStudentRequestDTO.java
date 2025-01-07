@@ -29,31 +29,31 @@ public class AdminStudentRequestDTO {
      */
     @NotNull(message = "{validation.rollNo.notNull}")
     @NotEmpty(message = "{validation.rollNo.notEmpty}")
-    private String rollNo;
+    public String rollNo;
 
 
     /**
      * Academic stream the student is enrolled in (e.g., Arts, Commerce, Science).
      */
     @NotNull(message = "{validation.academicStream.notNull}")
-    private String academicStream;
+    public String academicStream;
 
     /**
      * Academic course the student is pursuing (e.g., B.A, B.Sc, B.Com).
      */
     @NotNull(message = "{validation.academicCourse.notNull}")
-    private String academicCourse;
+    public String academicCourse;
 
     /**
      * Batch or year the student is in (e.g., Batch of 2025).
      */
     @NotNull(message = "{validation.batchYear.notNull}")
-    private Year batchYear;
+    public Year batchYear;
 
     /**
      * Division or class assigned to the student (e.g., "A", "B", etc.).
      */
-    private String classDivision;
+    public String classDivision;
 
 
     /**
@@ -61,16 +61,16 @@ public class AdminStudentRequestDTO {
      * This uses an Enum to represent the status.
      */
     @Enumerated(EnumType.STRING)
-    private ProfileStatus profileStatus;
+    public ProfileStatus profileStatus;
 
     /**
      * Date when the student leaves the system (e.g., graduation date, if applicable).
      */
-    private LocalDate dateOfLeaving;
+    public LocalDate dateOfLeaving;
 
 
     /**
      * Remarks or comments from teachers or administrators about the student.
      */
-    private String remarks;
+    public String remarks;
 }

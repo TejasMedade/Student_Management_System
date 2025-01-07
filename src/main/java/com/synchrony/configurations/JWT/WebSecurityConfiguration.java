@@ -11,16 +11,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * The WebSecurityConfiguration class defines the security configurations for the web application.
@@ -64,23 +65,22 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults()) // Enable CORS with default configuration
-                .csrf(csrf -> csrf.disable()) // Disable CSRF (stateless applications)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Reference our CORS configuration bean
+                .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless applications
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers(PUBLIC_URLS).permitAll() // Public endpoints that don't require authentication
-                        .requestMatchers("/synchrony/admin/**").hasRole("ADMIN") // Admin role access
-                        .requestMatchers("/synchrony/student/**").hasRole("STUDENT") // Student role access
-                        .requestMatchers("/synchrony/auth/logout").authenticated() // Require authentication for logout
+                        .requestMatchers(PUBLIC_URLS).permitAll() // Publicly accessible endpoints
+                        .requestMatchers("/synchrony/admin/**").hasRole("ADMIN") // ADMIN access only
+                        .requestMatchers("/synchrony/student/**").hasRole("STUDENT") // STUDENT access only
+                        .requestMatchers("/synchrony/auth/logout").authenticated() // Requires authentication for logout
                         .anyRequest().authenticated() // All other endpoints require authentication
                 )
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless session (no server-side session storage)
-                )
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session management
                 .exceptionHandling(ex ->
-                        ex.authenticationEntryPoint(authenticationEntryPoint) // Handle authentication exceptions
-                )
-                .authenticationProvider(authenticationProvider()) // Use custom AuthenticationProvider for user authentication
+                        ex.authenticationEntryPoint(authenticationEntryPoint)) // Handle authentication exceptions
+                .authenticationProvider(authenticationProvider()) // Use the custom authentication provider
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT filter before UsernamePasswordAuthenticationFilter
+
         return http.build();
     }
 
@@ -121,5 +121,31 @@ public class WebSecurityConfiguration {
     @Bean
     public JWTAuthenticationFilter authenticationJwtTokenFilter() {
         return new JWTAuthenticationFilter();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // Allowed origin for your front-end
+        configuration.addAllowedOrigin("http://192.168.31.77:5500");
+
+        // Enable credentials like cookies and Authorization headers
+        configuration.setAllowCredentials(true);
+
+        // Allowed HTTP methods
+        configuration.addAllowedMethod("GET");
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("DELETE");
+
+        // Allowed headers
+        configuration.addAllowedHeader("*"); // All headers are allowed
+
+        // Apply to all endpoints
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
     }
 }

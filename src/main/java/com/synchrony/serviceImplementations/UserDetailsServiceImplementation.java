@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -46,6 +47,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         if (username.contains("ADM")) {
             Optional<Admin> admin = adminRepository.findById(username);
             if (admin.isPresent()) {
+                admin.get().setLastLoginDate(LocalDate.now());
                 // Return the UserDetails with "ADMIN" role if Admin is found
                 return User.builder()
                         .username(admin.get().getUserName())
@@ -57,6 +59,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
             // Otherwise, treat the username as belonging to a Student
             Optional<Student> student = studentRepository.findById(username);
             if (student.isPresent()) {
+                student.get().setLastLoginDate(LocalDate.now());
                 // Return the UserDetails with "STUDENT" role if Student is found
                 return User.builder()
                         .username(student.get().getUserName())

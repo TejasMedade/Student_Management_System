@@ -25,7 +25,7 @@ public class StudentRequestDTO {
     @NotNull(message = "{validation.firstName.notNull}")
     @NotEmpty(message = "{validation.firstName.notEmpty}")
     @Pattern(regexp = "^[A-Za-z]+$", message = "{validation.firstName.pattern}")
-    private String firstName;
+    public String firstName;
 
     /**
      * Last name of the student.
@@ -33,21 +33,21 @@ public class StudentRequestDTO {
     @NotNull(message = "{validation.lastName.notNull}")
     @NotEmpty(message = "{validation.lastName.notEmpty}")
     @Pattern(regexp = "^[A-Za-z]+$", message = "{validation.lastName.pattern}")
-    private String lastName;
+    public String lastName;
 
     /**
      * Age of the student.
      */
     @Min(value = 1, message = "{validation.age.min}")
     @Max(value = 20, message = "{validation.age.max}")
-    private int age;
+    public int age;
 
     /**
      * Date of birth of the student.
      */
     @NotNull(message = "{validation.dateOfBirth.notNull}")
     @Past(message = "{validation.dateOfBirth.past}")
-    private LocalDate dateOfBirth;
+    public LocalDate dateOfBirth;
 
     /**
      * Contact number of the student.
@@ -55,33 +55,33 @@ public class StudentRequestDTO {
     @NotNull(message = "{validation.contactNumber.notNull}")
     @NotEmpty(message = "{validation.contactNumber.notEmpty}")
     @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "{validation.contactNumber.pattern}")
-    private String contactNumber;
+    public String contactNumber;
 
     /**
      * Blood group of the student.
      */
     @NotNull(message = "{validation.bloodGroup.notNull}")
-    private String bloodGroup;
+    public String bloodGroup;
 
     /**
      * Father's name.
      */
-    private String fatherName;
+    public String fatherName;
 
     /**
      * Mother's name.
      */
-    private String motherName;
+    public String motherName;
 
     /**
      * Permanent address of the student.
      */
-    private Address permanentAddress;
+    public Address permanentAddress;
 
     /**
      * Current address of the student.
      */
-    private Address currentAddress;
+    public Address currentAddress;
 
     /**
      * Email address of the student.
@@ -89,21 +89,21 @@ public class StudentRequestDTO {
     @NotNull(message = "{validation.email.notNull}")
     @NotEmpty(message = "{validation.email.notEmpty}")
     @Email(message = "{validation.email.pattern}")
-    private String email;
+    public String email;
 
     /**
      * Guardian's name (if the student's parents are not available).
      */
-    private String guardianName;
+    public String guardianName;
 
     /**
      * Guardian's contact number.
      */
     @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "{validation.guardianContact.pattern}")
-    private String guardianContact;
+    public String guardianContact;
 
     /**
      * Profile photo of the student (optional).
      */
-    private byte[] profilePhoto;
+    public byte[] profilePhoto;
 }

@@ -20,15 +20,15 @@ public class AdminRequestDTO {
 
     @NotNull(message = "{validation.firstName.notNull}")
     @NotEmpty(message = "{validation.firstName.notEmpty}")
-    private String firstName;
+    public String firstName;
 
     @NotNull(message = "{validation.lastName.notNull}")
     @NotEmpty(message = "{validation.lastName.notEmpty}")
-    private String lastName;
+    public String lastName;
 
     @NotNull(message = "{validation.email.notNull}")
     @Email(message = "{validation.email.invalid}")
-    private String email;
+    public String email;
 
     /**
      * Password field with regex validation.
@@ -40,20 +40,20 @@ public class AdminRequestDTO {
      * - Minimum length of 8 characters
      */
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*\\(\\)_\\+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$", message = "{validation.password.pattern}")
-    private String password;
+    public String password;
 
     @NotNull(message = "{validation.contactNumber.notNull}")
     @NotEmpty(message = "{validation.contactNumber.notEmpty}")
-    private String contactNumber;
+    public String contactNumber;
 
     /**
      * Profile status of the student (e.g., ACTIVE, INACTIVE).
      * This uses an Enum to represent the status.
      */
     @Enumerated(EnumType.STRING)
-    private ProfileStatus profileStatus;
+    public ProfileStatus profileStatus;
 
     // Optional profile photo (if you want to allow photo updates)
-    private byte[] profilePhoto;
+    public byte[] profilePhoto;
 
 }
