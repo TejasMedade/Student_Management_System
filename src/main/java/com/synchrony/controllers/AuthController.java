@@ -6,12 +6,8 @@
  */
 package com.synchrony.controllers;
 
-import com.synchrony.configurations.JWT.request.JwtAuthRequest;
-import com.synchrony.configurations.JWT.response.JwtAuthResponse;
-import com.synchrony.serviceImplementations.UserDetailsServiceImplementation;
-import com.synchrony.utils.JWT.JWTUtils;
-import com.synchrony.utils.responseHandlers.ApiResponse;
-import jakarta.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -24,7 +20,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
+import com.synchrony.configurations.JWT.request.JwtAuthRequest;
+import com.synchrony.configurations.JWT.response.JwtAuthResponse;
+import com.synchrony.serviceImplementations.UserDetailsServiceImplementation;
+import com.synchrony.utils.JWT.JWTUtils;
+import com.synchrony.utils.responseHandlers.ApiResponse;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * The AuthController class handles the authentication-related operations such as user login,

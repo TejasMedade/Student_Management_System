@@ -8,7 +8,10 @@ package com.synchrony.configurations.JWT.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
@@ -19,6 +22,8 @@ import java.util.Collection;
  * The JWT token is either sent via a cookie or in the JSON response body.
  */
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class JwtAuthResponse {
@@ -41,4 +46,34 @@ public class JwtAuthResponse {
 	 * This is a collection of roles or permissions assigned to the user.
 	 */
 	private Collection<? extends GrantedAuthority> authorities;
+
+	public String getToken() {
+		return Token;
+	}
+
+	public void setToken(String token) {
+		Token = token;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
+
+	public JwtAuthResponse(String token, String username, Collection<? extends GrantedAuthority> authorities) {
+		Token = token;
+		this.username = username;
+		this.authorities = authorities;
+	}
 }

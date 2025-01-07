@@ -2,6 +2,8 @@ package com.synchrony.utils.responseHandlers;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +17,8 @@ import java.time.LocalDateTime;
  * Author: @Tejas_Medade
  */
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class ApiResponse {
 
@@ -43,4 +47,34 @@ public class ApiResponse {
      * </p>
      */
     private boolean status;
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public ApiResponse(LocalDateTime timestamp, String message, boolean status) {
+        this.timestamp = timestamp;
+        this.message = message;
+        this.status = status;
+    }
 }

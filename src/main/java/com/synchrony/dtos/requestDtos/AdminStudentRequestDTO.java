@@ -3,10 +3,9 @@ package com.synchrony.dtos.requestDtos;
 import com.synchrony.enums.ProfileStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -19,6 +18,8 @@ import java.time.Year;
  * @author Tejas_Medade
  */
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminStudentRequestDTO {
@@ -73,4 +74,69 @@ public class AdminStudentRequestDTO {
      * Remarks or comments from teachers or administrators about the student.
      */
     public String remarks;
+
+
+    public String getRollNo() {
+        return rollNo;
+    }
+
+    public void setRollNo(String rollNo) {
+        this.rollNo = rollNo;
+    }
+
+    public String getAcademicStream() {
+        return academicStream;
+    }
+
+    public void setAcademicStream(String academicStream) {
+        this.academicStream = academicStream;
+    }
+
+    public String getAcademicCourse() {
+        return academicCourse;
+    }
+
+    public void setAcademicCourse(String academicCourse) {
+        this.academicCourse = academicCourse;
+    }
+
+    public Year getBatchYear() {
+        return batchYear;
+    }
+
+    public void setBatchYear(Year batchYear) {
+        this.batchYear = batchYear;
+    }
+
+    public String getClassDivision() {
+        return classDivision;
+    }
+
+    public void setClassDivision(String classDivision) {
+        this.classDivision = classDivision;
+    }
+
+    public ProfileStatus getProfileStatus() {
+        return profileStatus;
+    }
+
+    public void setProfileStatus(ProfileStatus profileStatus) {
+        this.profileStatus = profileStatus;
+    }
+
+    public LocalDate getDateOfLeaving() {
+        return dateOfLeaving;
+    }
+
+    public void setDateOfLeaving(LocalDate dateOfLeaving) {
+        this.dateOfLeaving = dateOfLeaving;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 }

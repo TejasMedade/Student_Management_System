@@ -9,7 +9,9 @@ package com.synchrony.configurations.JWT.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * The JwtAuthRequest class contains two fields: username and password,
@@ -18,6 +20,8 @@ import lombok.NoArgsConstructor;
  * setters, constructors, equals, hashCode, and toString methods.
  */
 @Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class JwtAuthRequest {
@@ -34,4 +38,19 @@ public class JwtAuthRequest {
 	 */
 	private String password;
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

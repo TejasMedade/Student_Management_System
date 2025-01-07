@@ -8,9 +8,7 @@
 package com.synchrony.dtos.responseDtos;
 
 import com.synchrony.enums.ProfileStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -20,6 +18,8 @@ import java.time.Year;
  * profile status, and other relevant information managed by the admin.
  */
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminStudentResponseDTO {
@@ -63,4 +63,68 @@ public class AdminStudentResponseDTO {
      * Any remarks related to the student's performance, status, or other observations.
      */
     private String remarks;
+
+    public String getRollNo() {
+        return rollNo;
+    }
+
+    public void setRollNo(String rollNo) {
+        this.rollNo = rollNo;
+    }
+
+    public String getAcademicStream() {
+        return academicStream;
+    }
+
+    public void setAcademicStream(String academicStream) {
+        this.academicStream = academicStream;
+    }
+
+    public String getAcademicCourse() {
+        return academicCourse;
+    }
+
+    public void setAcademicCourse(String academicCourse) {
+        this.academicCourse = academicCourse;
+    }
+
+    public Year getBatchYear() {
+        return batchYear;
+    }
+
+    public void setBatchYear(Year batchYear) {
+        this.batchYear = batchYear;
+    }
+
+    public String getClassDivision() {
+        return classDivision;
+    }
+
+    public void setClassDivision(String classDivision) {
+        this.classDivision = classDivision;
+    }
+
+    public ProfileStatus getProfileStatus() {
+        return profileStatus;
+    }
+
+    public void setProfileStatus(ProfileStatus profileStatus) {
+        this.profileStatus = profileStatus;
+    }
+
+    public LocalDate getDateOfLeaving() {
+        return dateOfLeaving;
+    }
+
+    public void setDateOfLeaving(LocalDate dateOfLeaving) {
+        this.dateOfLeaving = dateOfLeaving;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 }
