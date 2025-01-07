@@ -1,6 +1,7 @@
 ## STUDENT MANAGEMENT SYSTEM
 
-![Integrated Image](https://www.academyfront.com/images/blog/integrated.png)
+![integrated](https://github.com/user-attachments/assets/f8d9b5dc-c9e0-4ac8-95ec-b4b7b1d8e0ce)
+
 
 
 ## WEB SERVICE : REST A.P.I.
